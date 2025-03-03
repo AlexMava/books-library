@@ -1,0 +1,24 @@
+{
+  "books": [
+    {
+      "id": 54,
+      "title": "Book title-1",
+      "description": "Some description1",
+      "author": "Author1",
+      "ISBN": "some content ISBN1",
+      "created": "12 March 2022, 8:35AM",
+      "modified": "13 March 2022, 8:35AM",
+      "status": "active"
+    },
+    {
+      "id": 55,
+      "title": "Book title-2",
+      "description": "Some description-2",
+      "author": "Author-2",
+      "ISBN": "some content ISBN-2",
+      "created": "12 March 2022, 8:35AM",
+      "modified": "13 March 2022, 8:35AM",
+      "status": "active"
+    }
+  ]
+}

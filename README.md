@@ -1,4 +1,18 @@
-# React + TypeScript + Vite
+# Getting Started
+
+## 1. Installing Dependencies with npm install
+
+### `npm-install`
+
+
+## 2. Run Backend json-server
+
+### `npx json-server db.json`
+
+
+## 3. Run Frontend client
+
+### `npm run dev`
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
