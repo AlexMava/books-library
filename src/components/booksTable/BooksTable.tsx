@@ -37,9 +37,12 @@ function BooksTable() {
     }
 
     const renderBooks = (arr: Book[]) => {
-        if (arr.length === 0) return <tr className="table-status-field">
-            <td colSpan={4}><h5 className="">No books found!</h5></td>
-        </tr>
+        if (arr.length === 0)
+            return (
+                <tr className="table-status-field">
+                    <td colSpan={tableColumns.length}><h5 className="mb-0">No books found!</h5></td>
+                </tr>
+            )
 
         return arr.map((item: Book) => {
             const {id, title, author, category, ISBN, created, modified, status} = item;
@@ -73,7 +76,11 @@ function BooksTable() {
                         {
                             inActiveStatus ?
                                 <div className="my-2">
-                                    <button className="btn btn-danger">Delete</button>
+                                    <button
+                                        className="btn btn-danger"
+                                        onClick={deleteBook}
+                                        data-id={id}
+                                    >Delete</button>
                                 </div>
                                 : null
                         }
@@ -102,7 +109,7 @@ function BooksTable() {
         const bookId = event.currentTarget.dataset.id;
 
         if (bookId) {
-            const book = books.find((book: Book) => book.id.toString() === bookId.toString()) ?? null;
+            const book = books.find((book: Book) => book.id === parseInt(bookId, 10)) ?? null;
 
             if (!book) {
                 return;
@@ -117,7 +124,7 @@ function BooksTable() {
                 }
 
                 const updatedBooks = books.map((book) =>
-                    book.id === bookId
+                    book.id === parseInt(bookId, 10)
                         ? { ...book, status: newStatus }
                         : book
                 );
@@ -129,6 +136,21 @@ function BooksTable() {
         }
     }
 
+    function deleteBook(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
+
+        const bookId = event.currentTarget.dataset.id;
+
+        if (bookId) {
+            const updatedBooks = books.filter((book) => book.id.toString() !== bookId);
+
+            setBooks(updatedBooks);
+            deleteBookOnServer(bookId)
+
+        } else {
+          return;
+        }
+    }
     const updateBookOnServer = (book: Book, newStatus: string) => {
         fetch(`${API_URL}/${book.id}`, {
             method: 'PUT',
@@ -139,6 +161,19 @@ function BooksTable() {
                 ...book,
                 status: newStatus,
             }),
+        })
+            .then((response) => response.json())  // Parse the response
+            .catch((error) => {
+                console.error('Error updating book status on server:', error);
+            });
+    };
+
+    const deleteBookOnServer = (bookId: number | string) => {
+        fetch(`${API_URL}/${bookId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
         })
             .then((response) => response.json())  // Parse the response
             .catch((error) => {

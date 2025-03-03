@@ -23,17 +23,6 @@
       "status": "active"
     },
     {
-      "id": "15",
-      "title": "Book title-3",
-      "category": "Fantasy",
-      "description": "Some description-3",
-      "author": "Author-3",
-      "ISBN": "478-256-689",
-      "created": "15 March 2022, 8:35AM",
-      "modified": "16 March 2022, 8:35AM",
-      "status": "inactive"
-    },
-    {
       "id": "99",
       "title": "To Kill a Mockingbird",
       "category": "Novel",
