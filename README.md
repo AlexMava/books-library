@@ -7,7 +7,7 @@
 
 ## 2. Run Backend json-server
 
-### `npx json-server db.json`
+### `npx run start`
 
 
 ## 3. Run Frontend client

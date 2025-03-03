@@ -12,6 +12,7 @@ function BooksTable() {
     const API_URL = 'http://localhost:3000/books';
 
     const [books, setBooks] = useState<Book[]>([]);
+    const [filter, setFilter] = useState<string>('active');
 
     useEffect(() => {
         bookService.getAllBooks(API_URL)
@@ -40,33 +41,62 @@ function BooksTable() {
                     <td>{created}</td>
                     <td>{modified}</td>
                     <td><button>...</button></td>
-
                 </tr>
             )
         })
     }
 
-    const elements = renderBooks(books);
+    const elements = renderBooks(filterBooks(books, filter));
+
+    function filterBooks(books: Book[], filter: string) {
+        if (!filter || filter === 'all') return books;
+
+        return books.filter((book) => book.status === filter);
+    }
+
+    const handleChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
+        setFilter(event.target.value);
+    }
     return (
         <div className="py-4">
             <Container>
-                <Row>
-                    <Col>
-                        <h2>Books Table Component</h2>
+                <Row className="justify-content-between mb-4">
+                    <Col className="">
+                        <div className="">
+                            <button className="btn-primary">Add a Book</button>
+                        </div>
                     </Col>
 
+                    <Col className="">
+                        <div className="d-flex justify-content-end">
+                            <select
+                                name="filter"
+                                id="filterOptions"
+                                onChange={handleChange}
+                                value={filter}
+                            >
+                                <option value="all">Show All</option>
+                                <option value="active">Show Active</option>
+                                <option value="inactive">Show Deactivated</option>
+                            </select>
+                        </div>
+                    </Col>
+
+                </Row>
+
+                <Row>
                     <Col>
 
                         <div className="">
                             <table>
                                 <thead>
                                 <tr>
-                                    <td>Title</td>
-                                    <td>Author</td>
-                                    <td>ISBN</td>
-                                    <td>Created</td>
-                                    <td>Modified</td>
-                                    <td>Actions</td>
+                                    <td><b>Title</b></td>
+                                    <td><b>Author</b></td>
+                                    <td><b>ISBN</b></td>
+                                    <td><b>Created</b></td>
+                                    <td><b>Modified</b></td>
+                                    <td><b>Actions</b></td>
                                 </tr>
                                 </thead>
 

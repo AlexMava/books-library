@@ -11,7 +11,7 @@ function Footer() {
         <footer className="py-4">
             <Container>
                 <Row>
-                    <Col><p>{`© ${year}. All Rights Reserved.`} <a href="https://github.com/AlexMava/books-library">Github Repo</a></p></Col>
+                    <Col><p>{`© ${year}. All Rights Reserved.`} <a href="https://github.com/AlexMava/books-library" target="_blank">Repository</a></p></Col>
                 </Row>
             </Container>
         </footer>

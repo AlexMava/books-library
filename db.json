@@ -3,9 +3,10 @@
     {
       "id": 54,
       "title": "Book title-1",
+      "category": "Comedy",
       "description": "Some description1",
       "author": "Author1",
-      "ISBN": "some content ISBN1",
+      "ISBN": "111-256-689",
       "created": "12 March 2022, 8:35AM",
       "modified": "13 March 2022, 8:35AM",
       "status": "active"
@@ -13,12 +14,24 @@
     {
       "id": 55,
       "title": "Book title-2",
+      "category":  "Comedy",
       "description": "Some description-2",
       "author": "Author-2",
-      "ISBN": "some content ISBN-2",
+      "ISBN": "211-256-689",
       "created": "12 March 2022, 8:35AM",
       "modified": "13 March 2022, 8:35AM",
-      "status": "active"
+      "status": "inactive"
+    },
+    {
+      "id": 15,
+      "title": "Book title-3",
+      "category":  "Comedy",
+      "description": "Some description-3",
+      "author": "Author-3",
+      "ISBN": "478-256-689",
+      "created": "15 March 2022, 8:35AM",
+      "modified": "16 March 2022, 8:35AM",
+      "status": "inactive"
     }
   ]
 }
