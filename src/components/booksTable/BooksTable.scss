@@ -8,8 +8,16 @@ table {
     padding: 8px;
   }
 
-  tr:nth-child(even) {
-    background-color: #dddddd;
+  tr {
+    color: #000000;
+
+    &.inactive-item {
+      color: #C0C0C0;
+    }
+  }
+
+  button {
+    min-width: 200px;
   }
 }
 

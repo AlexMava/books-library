@@ -9,18 +9,28 @@ import {Book} from "../../types.ts";
 const bookService = new BookService();
 
 function BooksTable() {
+
     const API_URL = 'http://localhost:3000/books';
 
+    const tableColumns = ['Title', 'Author', 'Category', 'ISBN', 'Created', 'Modified', 'Actions'];
+
     const [books, setBooks] = useState<Book[]>([]);
-    const [filter, setFilter] = useState<string>('active');
+    const [filter, setFilter] = useState<string>('');
+    const [activeBooks, setActiveBooks] = useState<number>(0);
 
     useEffect(() => {
-        bookService.getAllBooks(API_URL)
+        bookService.request(API_URL)
             .then(onBooksLoaded)
             .catch((error) => {
                 console.log(error)
             });
+
+        setFilter('active');
     }, []);
+
+    useEffect(() => {
+        setActiveBooks(filteredBooks.length);
+    }, [books, filter]);
 
     const onBooksLoaded = (books: Book[]) => {
         setBooks(books)
@@ -32,21 +42,50 @@ function BooksTable() {
         </tr>
 
         return arr.map((item: Book) => {
-            const {id, title, author, ISBN, created, modified} = item;
+            const {id, title, author, category, ISBN, created, modified, status} = item;
+
+            const activeStatus = status === 'active',
+                inActiveStatus = status === 'inactive';
+
             return (
-                <tr key={id}>
+                <tr key={id} className={inActiveStatus ? 'inactive-item' : ''}>
                     <td>{title}</td>
                     <td>{author}</td>
+                    <td>{category}</td>
                     <td>{ISBN}</td>
                     <td>{created}</td>
                     <td>{modified}</td>
-                    <td><button>...</button></td>
+                    <td>
+                        <div className="my-2">
+                            <button className="btn btn-secondary">Edit</button>
+                        </div>
+
+                        <div className="my-2">
+                            <button
+                                className="btn btn-warning"
+                                onClick={activateBook}
+                                data-id={id}
+                            >
+                                {activeStatus ? 'Deactivate' : 'Re-Activate'}
+                            </button>
+                        </div>
+
+                        {
+                            inActiveStatus ?
+                                <div className="my-2">
+                                    <button className="btn btn-danger">Delete</button>
+                                </div>
+                                : null
+                        }
+                    </td>
                 </tr>
             )
         })
     }
 
-    const elements = renderBooks(filterBooks(books, filter));
+    const filteredBooks = filterBooks(books, filter);
+
+    const elements = renderBooks(filteredBooks);
 
     function filterBooks(books: Book[], filter: string) {
         if (!filter || filter === 'all') return books;
@@ -54,9 +93,59 @@ function BooksTable() {
         return books.filter((book) => book.status === filter);
     }
 
-    const handleChange = (event : React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setFilter(event.target.value);
     }
+
+    function activateBook(event: React.MouseEvent<HTMLButtonElement>) {
+        event.preventDefault();
+        const bookId = event.currentTarget.dataset.id;
+
+        if (bookId) {
+            const book = books.find((book: Book) => book.id.toString() === bookId.toString()) ?? null;
+
+            if (!book) {
+                return;
+            } else {
+                let newStatus: string = '';
+
+                //Toggle status
+                if (book.status === 'active') {
+                    newStatus = 'inactive';
+                } else if (book.status === 'inactive') {
+                    newStatus = 'active';
+                }
+
+                const updatedBooks = books.map((book) =>
+                    book.id === bookId
+                        ? { ...book, status: newStatus }
+                        : book
+                );
+
+                setBooks(updatedBooks);
+
+                updateBookOnServer(book, newStatus);
+            }
+        }
+    }
+
+    const updateBookOnServer = (book: Book, newStatus: string) => {
+        fetch(`${API_URL}/${book.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                ...book,
+                status: newStatus,
+            }),
+        })
+            .then((response) => response.json())  // Parse the response
+            .catch((error) => {
+                console.error('Error updating book status on server:', error);
+            });
+    };
+
     return (
         <div className="py-4">
             <Container>
@@ -68,7 +157,7 @@ function BooksTable() {
                     </Col>
 
                     <Col className="">
-                        <div className="d-flex justify-content-end">
+                        <div className="d-flex justify-content-end mb-2">
                             <select
                                 name="filter"
                                 id="filterOptions"
@@ -80,24 +169,20 @@ function BooksTable() {
                                 <option value="inactive">Show Deactivated</option>
                             </select>
                         </div>
+
+                        <div className="d-flex justify-content-end">{`Showing ${activeBooks} of ${books.length}`}</div>
                     </Col>
 
                 </Row>
 
                 <Row>
                     <Col>
-
                         <div className="">
                             <table>
                                 <thead>
-                                <tr>
-                                    <td><b>Title</b></td>
-                                    <td><b>Author</b></td>
-                                    <td><b>ISBN</b></td>
-                                    <td><b>Created</b></td>
-                                    <td><b>Modified</b></td>
-                                    <td><b>Actions</b></td>
-                                </tr>
+                                    <tr>
+                                        {tableColumns.map((column, index) => (<td key={index}><b>{column}</b></td>))}
+                                    </tr>
                                 </thead>
 
                                 <tbody>{elements}</tbody>

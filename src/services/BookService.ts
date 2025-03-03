@@ -1,18 +1,16 @@
 export default class BookService {
-    getResource = async (url: string) => {
-        const res = await fetch(url);
+    request = async (url: string, method: string = 'GET', body = null, headers = {'Content-Type': 'application/json'}) => {
+        try {
+            const response = await fetch(url, {method, body, headers});
 
-        if (!res.ok) {
-            throw new Error(`Could not fetch ${url}, status: ${res.status}`);
+            if (!response.ok) {
+                throw new Error(`Could not fetch ${url}, status: ${response.status}`);
+            }
+
+            return await response.json();
+        } catch(e) {
+            console.log('error', e)
+            throw e;
         }
-
-        return await res.json();
     }
-
-    getAllBooks = async (url: string) => {
-        const books = await this.getResource(url);
-
-        return books;
-    }
-
 }

@@ -1,36 +1,47 @@
 {
   "books": [
     {
-      "id": 54,
+      "id": "54",
       "title": "Book title-1",
-      "category": "Comedy",
-      "description": "Some description1",
-      "author": "Author1",
-      "ISBN": "111-256-689",
-      "created": "12 March 2022, 8:35AM",
-      "modified": "13 March 2022, 8:35AM",
-      "status": "active"
-    },
-    {
-      "id": 55,
-      "title": "Book title-2",
-      "category":  "Comedy",
-      "description": "Some description-2",
-      "author": "Author-2",
-      "ISBN": "211-256-689",
+      "category": "Adventure",
+      "description": "Some description-1",
+      "author": "Author-1",
+      "ISBN": "872-256-689",
       "created": "12 March 2022, 8:35AM",
       "modified": "13 March 2022, 8:35AM",
       "status": "inactive"
     },
     {
-      "id": 15,
+      "id": "55",
+      "title": "Book title-2",
+      "category": "Adventure",
+      "description": "Some description-2",
+      "author": "Author-2",
+      "ISBN": "211-256-689",
+      "created": "12 March 2022, 8:35AM",
+      "modified": "13 March 2022, 8:35AM",
+      "status": "active"
+    },
+    {
+      "id": "15",
       "title": "Book title-3",
-      "category":  "Comedy",
+      "category": "Fantasy",
       "description": "Some description-3",
       "author": "Author-3",
       "ISBN": "478-256-689",
       "created": "15 March 2022, 8:35AM",
       "modified": "16 March 2022, 8:35AM",
+      "status": "inactive"
+    },
+    {
+      "id": "99",
+      "title": "To Kill a Mockingbird",
+      "category": "Novel",
+      "description": "This book cover is one of many given to Harper Lee's classic work To Kill a Mockingbird (1960)",
+      "author": "Harper Lee",
+      "ISBN": "991-1456-220478",
+      "created": "03 March 2025, 8:35AM",
+      "modified": "03 March 2025, 8:36AM",
       "status": "inactive"
     }
   ]
