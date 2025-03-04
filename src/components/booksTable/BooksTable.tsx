@@ -2,6 +2,8 @@ import {useState, useEffect} from "react";
 import {Container, Row, Col} from 'react-bootstrap';
 import './BooksTable.scss';
 
+import {Link} from 'react-router-dom'
+
 import BookService from "../../services/BookService.ts";
 
 import {Book} from "../../types.ts";
@@ -109,7 +111,7 @@ function BooksTable() {
         const bookId = event.currentTarget.dataset.id;
 
         if (bookId) {
-            const book = books.find((book: Book) => book.id === parseInt(bookId, 10)) ?? null;
+            const book = books.find((book: Book) => book.id == parseInt(bookId, 10)) ?? null;
 
             if (!book) {
                 return;
@@ -124,13 +126,12 @@ function BooksTable() {
                 }
 
                 const updatedBooks = books.map((book) =>
-                    book.id === parseInt(bookId, 10)
+                    book.id == bookId
                         ? { ...book, status: newStatus }
                         : book
                 );
 
                 setBooks(updatedBooks);
-
                 updateBookOnServer(book, newStatus);
             }
         }
@@ -142,10 +143,11 @@ function BooksTable() {
         const bookId = event.currentTarget.dataset.id;
 
         if (bookId) {
-            const updatedBooks = books.filter((book) => book.id.toString() !== bookId);
+            const bookIdInt = parseInt(bookId, 10),
+                updatedBooks = books.filter((book) => book.id !== bookIdInt);
 
             setBooks(updatedBooks);
-            deleteBookOnServer(bookId)
+            deleteBookOnServer(bookIdInt)
 
         } else {
           return;
@@ -168,14 +170,9 @@ function BooksTable() {
             });
     };
 
-    const deleteBookOnServer = (bookId: number | string) => {
-        fetch(`${API_URL}/${bookId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then((response) => response.json())  // Parse the response
+    const deleteBookOnServer = ( bookId: number ) => {
+        fetch(`${API_URL}/${bookId}`, { method: 'DELETE' })
+            .then((response) => response.json())
             .catch((error) => {
                 console.error('Error updating book status on server:', error);
             });
@@ -187,7 +184,9 @@ function BooksTable() {
                 <Row className="justify-content-between mb-4">
                     <Col className="">
                         <div className="">
-                            <button className="btn-primary">Add a Book</button>
+                            <Link to='/edit/'
+                                  className="btn btn-primary"
+                            >Add a Book</Link>
                         </div>
                     </Col>
 

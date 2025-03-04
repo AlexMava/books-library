@@ -1,23 +1,12 @@
 {
   "books": [
     {
-      "id": "54",
-      "title": "Book title-1",
-      "category": "Adventure",
-      "description": "Some description-1",
-      "author": "Author-1",
-      "ISBN": "872-256-689",
-      "created": "12 March 2022, 8:35AM",
-      "modified": "13 March 2022, 8:35AM",
-      "status": "inactive"
-    },
-    {
       "id": "55",
       "title": "Book title-2",
       "category": "Adventure",
       "description": "Some description-2",
       "author": "Author-2",
-      "ISBN": "211-256-689",
+      "ISBN": 211256689,
       "created": "12 March 2022, 8:35AM",
       "modified": "13 March 2022, 8:35AM",
       "status": "active"
@@ -28,10 +17,30 @@
       "category": "Novel",
       "description": "This book cover is one of many given to Harper Lee's classic work To Kill a Mockingbird (1960)",
       "author": "Harper Lee",
-      "ISBN": "991-1456-220478",
+      "ISBN": 9911456220478,
       "created": "03 March 2025, 8:35AM",
       "modified": "03 March 2025, 8:36AM",
-      "status": "inactive"
+      "status": "active"
+    },
+    {
+      "id": "a09d1b5a-878c-4332-b59b-9528c403ed98",
+      "title": "Title",
+      "category": "Novel",
+      "author": "john",
+      "ISBN": "4555",
+      "created": "",
+      "modified": "",
+      "status": "active"
+    },
+    {
+      "id": "c86c8f62-d86f-429d-ade4-d93136850a8c",
+      "title": "Some Title",
+      "category": "Adventure",
+      "author": "Some Author",
+      "ISBN": "3546798098",
+      "created": "",
+      "modified": "",
+      "status": "active"
     }
   ]
 }
