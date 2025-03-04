@@ -52,7 +52,7 @@ const EditPage = () => {
         const date = new Date();
 
         const month = date.toLocaleString('default', { month: 'long' }),
-            time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
+            time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }).replace(/\s/g, ""),
             formattedDate = `${date.getDate()} ${month} ${date.getFullYear()}, ${time}`;
 
         const lastUpdated = singleBook.created ? formattedDate : '-';
