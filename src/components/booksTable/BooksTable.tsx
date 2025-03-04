@@ -147,7 +147,7 @@ function BooksTable() {
             deleteBookOnServer(bookId)
 
         } else {
-          return;
+            return;
         }
     }
     const updateBookOnServer = (book: Book, newStatus: string) => {
@@ -211,9 +211,9 @@ function BooksTable() {
                         <div className="">
                             <table>
                                 <thead>
-                                    <tr>
-                                        {tableColumns.map((column, index) => (<td key={index}><b>{column}</b></td>))}
-                                    </tr>
+                                <tr>
+                                    {tableColumns.map((column, index) => (<td key={index}><b>{column}</b></td>))}
+                                </tr>
                                 </thead>
 
                                 <tbody>{elements}</tbody>
