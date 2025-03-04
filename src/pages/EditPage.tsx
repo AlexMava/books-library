@@ -44,28 +44,57 @@ const EditPage = () => {
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const BookUpdated = {
-            "id": uuidv4(),
+        const date = new Date();
+
+        const month = date.toLocaleString('default', { month: 'long' }),
+            time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
+            formattedDate = `${date.getDate()} ${month} ${date.getFullYear()}, ${time}`;
+
+        const bookUpdated = {
+            "id": singleBook.id || uuidv4(),
             "title": singleBook.title,
             "category": singleBook.category,
             "author": singleBook.author,
             "ISBN": singleBook.ISBN,
-            "created": singleBook.created,
-            "modified": singleBook.modified,
+            "created": singleBook.created || formattedDate,
+            "modified": singleBook.modified || '-',
             "status": 'active',
         };
 
-        fetch(`${API_URL}/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(BookUpdated),
-        })
-            .then((response) => response.json())  // Parse the response
-            .catch((error) => {
-                console.error('Error updating book status on server:', error);
-            });
+        fetch(`${API_URL}/${bookUpdated.id}`)
+            .then((response) => {
+                if (response.status === 200 || response.status === 201) {
+                    return response.json()
+                }
+            })
+            .then((data) => {
+                console.log(data)
+                if (data) {
+                    console.log('if branch')
+                    // Item exists, so update it with PUT request
+                    return fetch(`${API_URL}/${bookUpdated.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(
+                            {...singleBook,
+                                author: bookUpdated.author
+                            }),
+                    });
+                } else {
+                    console.log('else branch')
+                    // Item does not exist, so create it with POST request
+                    return fetch(`${API_URL}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(bookUpdated),
+                    });
+                }
+            })
+            .catch((error) => {console.error('Error updating book status on server:', error);});
     }
 
     const onValueChange = (e:  React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -130,9 +159,12 @@ const EditPage = () => {
                             <Form.Select
                                 name="category"
                                 value={category}
-                                onChange={(e) =>onValueChange(e)}>
+                                required
+                                onChange={(e) => onValueChange(e)}>
+                                <option value="" disabled>Choose Category</option>
                                 <option value="Adventure">Adventure</option>
                                 <option value="Novel">Novel</option>
+                                <option value="Lessons">Lessons</option>
                             </Form.Select>
                         </Form.Group>
 
@@ -150,7 +182,7 @@ const EditPage = () => {
 
                         <Button variant="primary" type="submit">
                             {
-                                singleBook ?
+                                singleBook?.id ?
                                     'Edit Book'
                                     : 'Add a Book'
                             }

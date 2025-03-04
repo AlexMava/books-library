@@ -1,36 +1,54 @@
 {
   "books": [
     {
-      "id": "55",
-      "title": "Book title-2",
-      "category": "Adventure",
-      "description": "Some description-2",
-      "author": "Author-2",
-      "ISBN": 211256689,
-      "created": "12 March 2022, 8:35AM",
-      "modified": "13 March 2022, 8:35AM",
-      "status": "active"
-    },
-    {
-      "id": "99",
-      "title": "To Kill a Mockingbird",
-      "category": "Novel",
-      "description": "This book cover is one of many given to Harper Lee's classic work To Kill a Mockingbird (1960)",
-      "author": "Harper Lee",
-      "ISBN": 9911456220478,
-      "created": "03 March 2025, 8:35AM",
-      "modified": "03 March 2025, 8:36AM",
-      "status": "active"
-    },
-    {
-      "id": "c86c8f62-d86f-429d-ade4-d93136850a8c",
-      "title": "Some Title",
-      "category": "Adventure",
-      "author": "Some Author",
-      "ISBN": "3546798098",
-      "created": "",
-      "modified": "",
+      "id": "858a890e-4856-4f98-b2a9-8e86f6696dba",
+      "title": "The No. 1 Ladies' Detective Agency",
+      "category": "Lessons",
+      "author": "Alexander McCall Smith",
+      "ISBN": "00016618",
+      "created": "4 March 2025, 1:17 PM",
+      "modified": "-",
       "status": "inactive"
+    },
+    {
+      "id": "fcaf7e34-3518-4c43-af54-9eca62597f22",
+      "title": "The Housemaid",
+      "category": "Novel",
+      "author": "Freida McFadden",
+      "ISBN": "00114678",
+      "created": "4 March 2025, 1:19 PM",
+      "modified": "-",
+      "status": "active"
+    },
+    {
+      "id": "74315a9c-8e2e-4685-b337-84f0a72029b8",
+      "title": "The Husband's Secret",
+      "category": "Adventure",
+      "author": "Liane Moriarty",
+      "ISBN": "00034271",
+      "created": "4 March 2025, 1:19 PM",
+      "modified": "-",
+      "status": "active"
+    },
+    {
+      "id": "fd62e677-a720-450b-9277-e6cef6b3b7c2",
+      "title": "The Seven Year Slip",
+      "category": "Novel",
+      "author": "Ashley Poston",
+      "ISBN": "37320",
+      "created": "4 March 2025, 1:21 PM",
+      "modified": "-",
+      "status": "active"
+    },
+    {
+      "id": "54d35198-8a1f-499e-b714-ec647fc37b37",
+      "title": "The Guest List",
+      "category": "Novel",
+      "author": "Lyusi Foli",
+      "ISBN": "34002",
+      "created": "4 March 2025, 1:22 PM",
+      "modified": "-",
+      "status": "active"
     }
   ]
 }
