@@ -23,16 +23,6 @@
       "status": "active"
     },
     {
-      "id": "a09d1b5a-878c-4332-b59b-9528c403ed98",
-      "title": "Title",
-      "category": "Novel",
-      "author": "john",
-      "ISBN": "4555",
-      "created": "",
-      "modified": "",
-      "status": "active"
-    },
-    {
       "id": "c86c8f62-d86f-429d-ade4-d93136850a8c",
       "title": "Some Title",
       "category": "Adventure",
@@ -40,7 +30,7 @@
       "ISBN": "3546798098",
       "created": "",
       "modified": "",
-      "status": "active"
+      "status": "inactive"
     }
   ]
 }

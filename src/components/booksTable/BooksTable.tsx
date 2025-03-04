@@ -5,9 +5,7 @@ import './BooksTable.scss';
 import {Link} from 'react-router-dom'
 
 import BookService from "../../services/BookService.ts";
-
 import {Book} from "../../types.ts";
-
 const bookService = new BookService();
 
 function BooksTable() {
@@ -62,7 +60,7 @@ function BooksTable() {
                     <td>{modified}</td>
                     <td>
                         <div className="my-2">
-                            <button className="btn btn-secondary">Edit</button>
+                            <Link to={`/edit/${id}`} className="btn btn-secondary">Edit</Link>
                         </div>
 
                         <div className="my-2">
@@ -111,7 +109,7 @@ function BooksTable() {
         const bookId = event.currentTarget.dataset.id;
 
         if (bookId) {
-            const book = books.find((book: Book) => book.id == parseInt(bookId, 10)) ?? null;
+            const book = books.find((book: Book) => book.id == bookId) ?? null;
 
             if (!book) {
                 return;
@@ -143,11 +141,10 @@ function BooksTable() {
         const bookId = event.currentTarget.dataset.id;
 
         if (bookId) {
-            const bookIdInt = parseInt(bookId, 10),
-                updatedBooks = books.filter((book) => book.id !== bookIdInt);
+            const updatedBooks = books.filter((book) => book.id != bookId);
 
             setBooks(updatedBooks);
-            deleteBookOnServer(bookIdInt)
+            deleteBookOnServer(bookId)
 
         } else {
           return;
@@ -170,7 +167,7 @@ function BooksTable() {
             });
     };
 
-    const deleteBookOnServer = ( bookId: number ) => {
+    const deleteBookOnServer = ( bookId: string ) => {
         fetch(`${API_URL}/${bookId}`, { method: 'DELETE' })
             .then((response) => response.json())
             .catch((error) => {
