@@ -19,9 +19,8 @@ const EditPage = () => {
         "id": '',
         "title": '',
         "category": '',
-        "description": '',
         "author": '',
-        "ISBN": '',
+        "ISBN": 0,
         "created": '',
         "modified": '',
         "status": '',
@@ -58,12 +57,12 @@ const EditPage = () => {
 
         const lastUpdated = singleBook.created ? formattedDate : '-';
 
-        const bookUpdated = {
+        const bookUpdated: Book = {
             "id": singleBook.id || uuidv4(),
             "title": singleBook.title,
             "category": singleBook.category,
             "author": singleBook.author,
-            "ISBN": singleBook.ISBN,
+            "ISBN": +singleBook.ISBN,
             "created": singleBook.created || formattedDate,
             "modified": lastUpdated,
             "status": 'active',

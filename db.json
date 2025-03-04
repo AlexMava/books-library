@@ -5,7 +5,7 @@
       "title": "The No. 1 Ladies' Detective Agency",
       "category": "Lessons",
       "author": "Alexander McCall Smith",
-      "ISBN": "00016618",
+      "ISBN": 16618,
       "created": "4 March 2025, 1:17 PM",
       "modified": "4 March 2025, 2:06 PM",
       "status": "inactive"
@@ -15,7 +15,7 @@
       "title": "The Housemaid",
       "category": "Novel",
       "author": "Freida McFadden",
-      "ISBN": "00114678",
+      "ISBN": 114678,
       "created": "4 March 2025, 1:19 PM",
       "modified": "4 March 2025, 2:04 PM",
       "status": "active"
@@ -25,7 +25,7 @@
       "title": "The Husband's Secret",
       "category": "Adventure",
       "author": "Liane Moriarty",
-      "ISBN": "00034271",
+      "ISBN": 34271,
       "created": "4 March 2025, 1:19 PM",
       "modified": "4 March 2025, 2:05 PM",
       "status": "active"
@@ -35,7 +35,7 @@
       "title": "The Seven Year Slip",
       "category": "Novel",
       "author": "Ashley Poston",
-      "ISBN": "37320",
+      "ISBN": 37320,
       "created": "4 March 2025, 1:21 PM",
       "modified": "4 March 2025, 2:08 PM",
       "status": "active"
@@ -45,7 +45,7 @@
       "title": "The Guest List",
       "category": "Novel",
       "author": "Lyusi Foli",
-      "ISBN": "34002",
+      "ISBN": 34002,
       "created": "4 March 2025, 1:22 PM",
       "modified": "-",
       "status": "active"

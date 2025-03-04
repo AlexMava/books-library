@@ -7,6 +7,10 @@ table {
   padding: 0;
   table-layout: fixed;
 
+  thead {
+    text-transform: uppercase;
+  }
+
   td, th {
     border: 1px solid #dddddd;
     padding: 8px;
