@@ -52,13 +52,13 @@ function BooksTable() {
 
             return (
                 <tr key={id} className={inActiveStatus ? 'inactive-item' : ''}>
-                    <td>{title}</td>
-                    <td>{author}</td>
-                    <td>{category}</td>
-                    <td>{ISBN}</td>
-                    <td>{created}</td>
-                    <td>{modified}</td>
-                    <td>
+                    <td data-label="Title">{title}</td>
+                    <td data-label="Author">{author}</td>
+                    <td data-label="Category">{category}</td>
+                    <td data-label="ISBN">{ISBN}</td>
+                    <td data-label="Created">{created}</td>
+                    <td data-label="Modified">{modified}</td>
+                    <td data-label="">
                         <div className="my-2">
                             <Link to={`/edit/${id}`} className="btn btn-secondary">Edit</Link>
                         </div>

@@ -2,22 +2,31 @@ table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
+  border: 1px solid #ccc;
+  margin: 0;
+  padding: 0;
+  table-layout: fixed;
+
   td, th {
     border: 1px solid #dddddd;
-    text-align: left;
     padding: 8px;
   }
 
   tr {
     color: #000000;
+    border: 1px solid #ddd;
 
     &.inactive-item {
       color: #C0C0C0;
     }
   }
 
+  th {
+    font-size: .85em;
+  }
+
   button, .btn {
-    min-width: 200px;
+    width: 100%;
   }
 }
 
@@ -31,3 +40,43 @@ input[type=text] {
 }
 
 .table-status-field h5 {text-align: center;}
+
+
+@media screen and (max-width: 1024px) {
+  table {
+    border: 0;
+
+    thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 0;
+      width: 0;
+      overflow: hidden;
+      position: absolute;
+    }
+
+    tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+
+    td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+
+      &:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+}
