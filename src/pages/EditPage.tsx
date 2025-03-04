@@ -50,6 +50,10 @@ const EditPage = () => {
             time = date.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }),
             formattedDate = `${date.getDate()} ${month} ${date.getFullYear()}, ${time}`;
 
+        const lastUpdated = singleBook.created ? formattedDate : 'a';
+
+        console.log('lastUpdated', lastUpdated, formattedDate)
+
         const bookUpdated = {
             "id": singleBook.id || uuidv4(),
             "title": singleBook.title,
@@ -57,7 +61,7 @@ const EditPage = () => {
             "author": singleBook.author,
             "ISBN": singleBook.ISBN,
             "created": singleBook.created || formattedDate,
-            "modified": singleBook.modified || '-',
+            "modified": lastUpdated,
             "status": 'active',
         };
 
@@ -68,9 +72,7 @@ const EditPage = () => {
                 }
             })
             .then((data) => {
-                console.log(data)
                 if (data) {
-                    console.log('if branch')
                     // Item exists, so update it with PUT request
                     return fetch(`${API_URL}/${bookUpdated.id}`, {
                         method: 'PUT',
@@ -78,12 +80,9 @@ const EditPage = () => {
                             'Content-Type': 'application/json',
                         },
                         body: JSON.stringify(
-                            {...singleBook,
-                                author: bookUpdated.author
-                            }),
+                            {...bookUpdated }),
                     });
                 } else {
-                    console.log('else branch')
                     // Item does not exist, so create it with POST request
                     return fetch(`${API_URL}`, {
                         method: 'POST',
