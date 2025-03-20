@@ -1,11 +1,11 @@
-import {useState, useEffect} from "react";
-import {Container, Row, Col} from 'react-bootstrap';
+import { useState, useEffect } from "react";
+import { Container, Row, Col } from 'react-bootstrap';
 import './BooksTable.scss';
 
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import BookService from "../../services/BookService.ts";
-import {Book, BookId} from "../../types.ts";
+import { Book, BookId } from "../../types.ts";
 const bookService = new BookService();
 
 function BooksTable() {
@@ -16,7 +16,6 @@ function BooksTable() {
 
     const [books, setBooks] = useState<Book[]>([]);
     const [filter, setFilter] = useState<string>('');
-    const [activeBooks, setActiveBooks] = useState<number>(0);
 
     useEffect(() => {
         bookService.request(API_URL)
@@ -27,10 +26,6 @@ function BooksTable() {
 
         setFilter('active');
     }, []);
-
-    useEffect(() => {
-        setActiveBooks(filteredBooks.length);
-    }, [books, filter]);
 
     const onBooksLoaded = (books: Book[]) => {
         setBooks(books)
@@ -194,7 +189,7 @@ function BooksTable() {
                             </select>
                         </div>
 
-                        <div className="d-flex justify-content-end">{`Showing ${activeBooks} of ${books.length}`}</div>
+                        <div className="d-flex justify-content-end">{`Showing ${filteredBooks.length} of ${books.length}`}</div>
                     </Col>
 
                 </Row>
@@ -204,9 +199,9 @@ function BooksTable() {
                         <div className="">
                             <table>
                                 <thead>
-                                <tr>
-                                    {tableColumns.map((column, index) => (<td key={index}><b>{column}</b></td>))}
-                                </tr>
+                                    <tr>
+                                        {tableColumns.map((column, index) => (<th key={index}><b>{column}</b></th>))}
+                                    </tr>
                                 </thead>
 
                                 <tbody>{elements}</tbody>
