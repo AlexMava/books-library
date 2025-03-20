@@ -1,5 +1,7 @@
+export type BookId = string | number;
+
 export type Book =     {
-    "id": number | string;
+    "id": BookId;
     "title": string;
     "category": string;
     "author": string;

@@ -5,7 +5,7 @@ import './BooksTable.scss';
 import {Link} from 'react-router-dom'
 
 import BookService from "../../services/BookService.ts";
-import {Book} from "../../types.ts";
+import {Book, BookId} from "../../types.ts";
 const bookService = new BookService();
 
 function BooksTable() {
@@ -66,8 +66,7 @@ function BooksTable() {
                         <div className="my-2">
                             <button
                                 className="btn btn-warning"
-                                onClick={activateBook}
-                                data-id={id}
+                                onClick={() => activateBook(id)}
                             >
                                 {activeStatus ? 'Deactivate' : 'Re-Activate'}
                             </button>
@@ -78,8 +77,7 @@ function BooksTable() {
                                 <div className="my-2">
                                     <button
                                         className="btn btn-danger"
-                                        onClick={deleteBook}
-                                        data-id={id}
+                                        onClick={() => deleteBook(id)}
                                     >Delete</button>
                                 </div>
                                 : null
@@ -104,51 +102,46 @@ function BooksTable() {
         setFilter(event.target.value);
     }
 
-    function activateBook(event: React.MouseEvent<HTMLButtonElement>) {
-        event.preventDefault();
-        const bookId = event.currentTarget.dataset.id;
+    function activateBook(bookId: BookId) {
 
-        if (bookId) {
-            const book = books.find((book: Book) => book.id == bookId) ?? null;
+        if (!bookId) return;
 
-            if (!book) {
-                return;
-            } else {
-                let newStatus: string = '';
+        const book = books.find((book: Book) => book.id == bookId) ?? null;
 
-                //Toggle status
-                if (book.status === 'active') {
-                    newStatus = 'inactive';
-                } else if (book.status === 'inactive') {
-                    newStatus = 'active';
-                }
+        if (!book) {
+            return;
+        } else {
+            let newStatus: string = '';
 
-                const updatedBooks = books.map((book) =>
-                    book.id == bookId
-                        ? { ...book, status: newStatus }
-                        : book
-                );
-
-                setBooks(updatedBooks);
-                updateBookOnServer(book, newStatus);
+            //Toggle status
+            if (book.status === 'active') {
+                newStatus = 'inactive';
+            } else if (book.status === 'inactive') {
+                newStatus = 'active';
             }
+
+            const updatedBooks = books.map((book) =>
+                book.id == bookId
+                    ? { ...book, status: newStatus }
+                    : book
+            );
+
+            setBooks(updatedBooks);
+            updateBookOnServer(book, newStatus);
         }
     }
 
-    function deleteBook(event: React.MouseEvent<HTMLButtonElement>) {
-        event.preventDefault();
+    function deleteBook(bookId: BookId) {
 
-        const bookId = event.currentTarget.dataset.id;
-
-        if (bookId) {
-            const updatedBooks = books.filter((book) => book.id != bookId);
-
-            setBooks(updatedBooks);
-            deleteBookOnServer(bookId)
-
-        } else {
+        if (!bookId) {
             return;
+
         }
+
+        const updatedBooks = books.filter((book) => book.id != bookId);
+
+        setBooks(updatedBooks);
+        deleteBookOnServer(bookId)
     }
     const updateBookOnServer = (book: Book, newStatus: string) => {
         fetch(`${API_URL}/${book.id}`, {
@@ -167,7 +160,7 @@ function BooksTable() {
             });
     };
 
-    const deleteBookOnServer = ( bookId: string ) => {
+    const deleteBookOnServer = ( bookId: BookId ) => {
         fetch(`${API_URL}/${bookId}`, { method: 'DELETE' })
             .then((response) => response.json())
             .catch((error) => {
